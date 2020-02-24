@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.lang.*;
+import java.util.ArrayList;
 
 public class Sorting 
 {
@@ -113,11 +114,81 @@ public class Sorting
         System.out.println(); 
     } 
     
+    //Practical 5 Merge Sort
+    public static ArrayList<Integer> mergeSort(ArrayList<Integer> arr)
+    {
+    	int N = arr.size();
+    	int midpoint = N/2;
+    	ArrayList<Integer> left = new ArrayList<Integer>();
+    	
+    	for(int i=0; i<midpoint; i++)
+    	{
+    		left.add(arr.get(i));
+    	}
+    	
+    	ArrayList<Integer> right = new ArrayList<Integer>();
+    	
+    	for(int i=midpoint; i<N; i++)
+    	{
+    		right.add(arr.get(i));
+    	}
+    	
+    	ArrayList<Integer> mergedArray = new ArrayList<Integer>();
+    	
+    	if(N==1)
+    	{
+    		return arr;
+    	}
+    	
+    	left = mergeSort(left);
+    	right = mergeSort(right);
+    	
+    	mergedArray = merge(left, right);
+    	
+    	return mergedArray;
+    }
+    
+    public static ArrayList<Integer> merge(ArrayList<Integer> a, ArrayList<Integer> b)
+    {
+    	ArrayList<Integer> s = new ArrayList<Integer>();
+    	
+    	while(!(a.isEmpty()) && !(b.isEmpty()))
+    	{
+    		if(a.get(0) <= b.get(0))
+    		{
+    			s.add(a.remove(0));
+    		}
+    		else if (b.get(0) <= a.get(0))
+    		{
+    			s.add(b.remove(0));
+    		}
+    	}
+    	
+    	if(!a.isEmpty())
+    	{
+    		for(int x: a)
+    		{
+    			s.add(x);
+    		}
+    	}
+    	else if (!b.isEmpty())
+    	{
+    		for(int x: b)
+    		{
+    			s.add(x);
+    		}
+    	}
+    	
+    	return s;
+    }
+    
     public static void main(String[] args)
     {
     	int[] a = new int[20];
     	int[] b = new int[20];
     	int[] c = new int[20];
+    	ArrayList<Integer> d = new ArrayList<Integer>();
+    	
     	Random random = new Random();
     	
     	for(int i=0; i<a.length; i++)
@@ -125,6 +196,7 @@ public class Sorting
     		a[i] = random.nextInt(20);
     		b[i] = random.nextInt(20);
     		c[i] = random.nextInt(20);
+    		d.add(random.nextInt(20));
     	}
     	
 
@@ -144,12 +216,18 @@ public class Sorting
     	System.out.println("the time taken for insertion " + elapsedTime1);
     	printArray(b);
     	
-    	printArray(c);
+    	/*printArray(c);
     	long startTime2 = System.currentTimeMillis();
     	bogoSort(c);
     	long elapsedTime2 = System.currentTimeMillis() - startTime2; 
     	System.out.println("the time taken for insertion " + elapsedTime2);
-    	printArray(c);
+    	printArray(c);*/
+
+    	System.out.println("Merge Sort unsorted: " + d);
+    	long startTime3 = System.currentTimeMillis();
+    	System.out.println("Merged Sort sorted: " + mergeSort(d));
+    	long elapsedTime3 = System.currentTimeMillis() - startTime3; 
+    	System.out.println("the time taken for merge sort " + elapsedTime3);
     }
 
 }
