@@ -16,6 +16,11 @@ public class Hanoi
     public static void main(String args[]) 
     { 
         int n = 3; // Number of disks 
-        towersOfHanoi(n, "A", "C", "B");  // A, B and C are names of rods 
-    } 
+
+    	long startTime = System.nanoTime();
+    	towersOfHanoi(n, "A", "C", "B");  // A, B and C are names of rods 
+    	long elapsedTime = System.nanoTime() - startTime;
+    	System.out.println(n + " " + elapsedTime);
+    }
+
 } 

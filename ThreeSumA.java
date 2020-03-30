@@ -47,7 +47,7 @@ public class ThreeSumA {
      */
     public static void main(String[] args)  { 
     	long startTime = System.currentTimeMillis();
-        In in = new In(args[0]);
+        In in = new In(args[0]); //Muster enter name of file as cmd line argument in run configs
         int[] a = in.readAllInts();
         int count = count(a);
         long elapsedTime = System.currentTimeMillis() - startTime; 

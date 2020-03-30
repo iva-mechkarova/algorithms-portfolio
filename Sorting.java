@@ -78,13 +78,18 @@ public class Sorting
         }
 	}
 	
-    public static void shuffle(int[] a) 
-    { 
-         for (int i=1; i < a.length; i++) 
-         {
-        	 swap(a, i, (int)(Math.random()*i));  
-         }          
-    } 
+	public static void shuffle(int[] a) 
+	{
+        int n = a.length;
+        for (int i = 0; i < n; i++) 
+        {
+            // choose index uniformly in [0, i]
+            int r = (int) (Math.random() * (i + 1));
+            int swap = a[r];
+            a[r] = a[i];
+            a[i] = swap;
+        }
+    }
 	
     public static void swap(int[] a, int i, int j) 
     { 
@@ -116,71 +121,102 @@ public class Sorting
     } 
     
     //Practical 5 Merge Sort
-    public static ArrayList<Integer> mergeSort(ArrayList<Integer> arr)
+    public static void mergeSort(int arr[], int left, int right)
     {
-    	int N = arr.size();
-    	int midpoint = N/2;
-    	ArrayList<Integer> left = new ArrayList<Integer>();
-    	
-    	for(int i=0; i<midpoint; i++)
-    	{
-    		left.add(arr.get(i));
-    	}
-    	
-    	ArrayList<Integer> right = new ArrayList<Integer>();
-    	
-    	for(int i=midpoint; i<N; i++)
-    	{
-    		right.add(arr.get(i));
-    	}
-    	
-    	ArrayList<Integer> mergedArray = new ArrayList<Integer>();
-    	
-    	if(N==1)
-    	{
-    		return arr;
-    	}
-    	
-    	left = mergeSort(left);
-    	right = mergeSort(right);
-    	
-    	mergedArray = merge(left, right);
-    	
-    	return mergedArray;
+        if (left < right) 
+        { 
+            // Find the middle point 
+            int mid = (left+right)/2; 
+  
+            // Sort first and second halves 
+            mergeSort(arr, left, mid); 
+            mergeSort(arr , mid+1, right); 
+  
+            // Merge the sorted halves 
+            merge(arr, left, mid, right); 
+        } 
     }
     
-    public static ArrayList<Integer> merge(ArrayList<Integer> a, ArrayList<Integer> b)
+	public static void merge(int arr[], int left, int mid, int right)
     {
-    	ArrayList<Integer> s = new ArrayList<Integer>();
-    	
-    	while(!(a.isEmpty()) && !(b.isEmpty()))
+        // Find sizes of two subarrays to be merged 
+        int n1 = mid - left + 1; 
+        int n2 = right - mid; 
+  
+        /* Create temp arrays */
+        int L[] = new int [n1]; 
+        int R[] = new int [n2]; 
+  
+        /*Copy data to temp arrays*/
+        for (int i=0; i<n1; ++i) 
+            L[i] = arr[left + i]; 
+        for (int j=0; j<n2; ++j) 
+            R[j] = arr[mid + 1+ j]; 
+  
+  
+        /* Merge the temp arrays */
+  
+        // Initial indexes of first and second subarrays 
+        int i = 0, j = 0; 
+  
+        // Initial index of merged subarry array 
+        int k = left; 
+        while (i < n1 && j < n2) 
+        { 
+            if (L[i] <= R[j]) 
+            { 
+                arr[k] = L[i]; 
+                i++; 
+            } 
+            else
+            { 
+                arr[k] = R[j]; 
+                j++; 
+            } 
+            k++; 
+        } 
+  
+        /* Copy remaining elements of L[] if any */
+        while (i < n1) 
+        { 
+            arr[k] = L[i]; 
+            i++; 
+            k++; 
+        } 
+  
+        /* Copy remaining elements of R[] if any */
+        while (j < n2) 
+        { 
+            arr[k] = R[j]; 
+            j++; 
+            k++; 
+        }
+	}
+	
+    public static void enhancedMergeSort(int arr[], int left, int right)
+    {
+    	/*Stop if already sorted*/
+    	if (right <= left) 
+    		return;
+    	/*If less than or equal to the cutoff number of elements then insertion sort is faster*/
+    	if(right <= left + CUTOFF -1)
     	{
-    		if(a.get(0) <= b.get(0))
-    		{
-    			s.add(a.remove(0));
-    		}
-    		else if (b.get(0) <= a.get(0))
-    		{
-    			s.add(b.remove(0));
-    		}
+    		insertionSort(arr);
+    		return;
     	}
     	
-    	if(!a.isEmpty())
-    	{
-    		for(int x: a)
-    		{
-    			s.add(x);
-    		}
-    	}
-    	else if (!b.isEmpty())
-    	{
-    		for(int x: b)
-    		{
-    			s.add(x);
-    		}
-    	}
-    	
-    	return s;
+        if (left < right) 
+        { 
+            // Find the middle point 
+            int mid = (left+right)/2; 
+  
+            // Sort first and second halves 
+            enhancedMergeSort(arr, left, mid); 
+            enhancedMergeSort(arr , mid+1, right); 
+  
+            // Merge the sorted halves 
+            merge(arr, left, mid, right); 
+        } 
     }
     
     //Practical 6 QuickSort
@@ -272,15 +308,16 @@ public class Sorting
 	        return false;
 	    return isSorted(array, length - 1);
 	}
-    
+	
     public static void main(String[] args)
     {
     	int n = 10;
     	
+    	//use an integer variable to decide which sorting algorithm to use below
+    	int typeSort = 5;
     	while(n<=100000)
     	{
         	int[] a = new int[n];
-        	//ArrayList<Integer> d = new ArrayList<Integer>();
         	
         	Random random = new Random();
         	
@@ -290,79 +327,40 @@ public class Sorting
         	}
         	
         	long startTime = System.nanoTime();
-        	//bogoSort(a);
-        	//selection_sort(a);
-        	//insertionSort(a);
-        	//mergeSort(d);
-        	//quickSort(a, 0, n-1);
-        	enhancedQuickSort(a, 0, n-1);
+        	
+        	switch (typeSort)
+        	{
+	        	case 0:
+	        		selection_sort(a);
+	        		break;
+	        	case 1:
+	        		insertionSort(a);
+	        		break;
+	        	case 2:
+	        		bogoSort(a);
+	        		break;
+	        	case 3:
+	        		mergeSort(a, 0, n-1);
+	        		break;
+	        	case 4:
+	        		enhancedMergeSort(a, 0, n-1);
+	        		break;
+	        	case 5:
+	        		quickSort(a, 0, n-1);
+	        		break;
+	        	case 6:
+	        		enhancedQuickSort(a, 0, n-1);
+	        		break;
+				default:
+					System.err.printf("\nBad sort ID '%d'", typeSort);
+					System.exit(-2);
+        	}
+  
         	long elapsedTime = System.nanoTime() - startTime; 
         	System.out.println(n + " " + elapsedTime + " " + isSorted(a));
-        	//System.out.println(n +  " " + elapsedTime + " " + isSorted(mergeSort(d).toArray(new Integer[mergeSort(d).size()]), mergeSort(d).toArray(new Integer[mergeSort(d).size()]).length));
-        	
-        	n*=1.2;
-    	}
-    	/*int[] a = new int[20];
-    	int[] b = new int[20];
-    	int[] c = new int[20];
-    	ArrayList<Integer> d = new ArrayList<Integer>();
-    	int[] e = new int[20];
-    	int[] f = new int[20];
-    	
-    	Random random = new Random();
-    	
-    	for(int i=0; i<a.length; i++)
-    	{
-    		a[i] = random.nextInt(20);
-    		b[i] = random.nextInt(20);
-    		c[i] = random.nextInt(20);
-    		d.add(random.nextInt(20));
-    		e[i] = random.nextInt(20);
-    		f[i] = random.nextInt(20);
-    	}
-    	
 
-    	
-    	printArray(a);
-    	long startTime = System.nanoTime();
-    	selection_sort(a);
-    	long elapsedTime = System.nanoTime() - startTime; 
-    	System.out.println("the time taken for selection " + elapsedTime + " " + isSorted(a));  
-    	printArray(a);
-    	
-    	printArray(b);
-    	long startTime1 = System.nanoTime();
-    	insertionSort(b);
-    	long elapsedTime1 = System.nanoTime() - startTime1; 
-    	System.out.println("the time taken for insertion " + elapsedTime1 + " " + isSorted(b));
-    	printArray(b);
-    	
-    	printArray(c);
-    	long startTime2 = System.currentTimeMillis();
-    	bogoSort(c);
-    	long elapsedTime2 = System.currentTimeMillis() - startTime2; 
-    	System.out.println("the time taken for insertion " + elapsedTime2);
-    	printArray(c);
-
-    	System.out.println("Merge Sort unsorted: " + d);
-    	long startTime3 = System.nanoTime();
-    	mergeSort(d);
-    	long elapsedTime3 = System.nanoTime() - startTime3; 
-    	System.out.println("the time taken for merge sort " + elapsedTime3 + " " + isSorted(mergeSort(d).toArray(new Integer[mergeSort(d).size()]), mergeSort(d).toArray(new Integer[mergeSort(d).size()]).length));
-    	
-    	System.out.println("Quick Sort unsorted: ");
-    	printArray(e);
-    	long startTime4 = System.nanoTime();
-    	quickSort(e, 0, 19);
-    	long elapsedTime4 = System.nanoTime() - startTime4; 
-    	System.out.println("the time taken for quick sort " + elapsedTime4 + " " + isSorted(e));
-    	
-    	System.out.println("Enhanced Quick Sort unsorted: ");
-    	printArray(f);
-    	long startTime5 = System.nanoTime();
-    	quickSort(f, 0, 19);
-    	long elapsedTime5 = System.nanoTime() - startTime5; 
-    	System.out.println("the time taken for quick sort " + elapsedTime5 + " " + isSorted(f));*/
+        	n*=1.5;
+    	}
     }
 
 }

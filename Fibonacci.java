@@ -34,8 +34,17 @@ public class Fibonacci
 	
 	 public static void main (String args[]) 
     { 
-		 int n = 9; 
-		 System.out.println(fibonacciIterative(n)); 
-		 System.out.println(fibonacciRecursive(n)); 
+		 int n = 10; 
+		 /*Check each method with different values for n*/
+		 while(n<1000000)
+		 {
+			 long startTime = System.nanoTime();
+			 fibonacciIterative(n);
+			 //fibonacciRecursive(n);
+			 long elapsedTime = System.nanoTime() - startTime;
+			 System.out.println(n + " " + elapsedTime);
+			 n*=1.2;
+			 
+		 }
     } 
 }
