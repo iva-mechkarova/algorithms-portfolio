@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Sorting 
 {
+	public static final int CUTOFF=10;
 	public static void selectionSort(int[] a)
 	{
 		int temp;
@@ -182,12 +183,131 @@ public class Sorting
     	return s;
     }
     
+    //Practical 6 QuickSort
+    /*Low is starting index and high is end index i.e. usually 0 and n-1*/
+    public static void quickSort(int[] arr, int low, int high)
+    {  	
+    	int pi; //Partitioning index
+    	if(low<high)
+    	{
+    		pi = partition(arr, low, high);  //arr[pi] is now at right place
+    		quickSort(arr, low, pi-1); //Sort elements before pi
+    		quickSort(arr, pi+1, high); //Sort elements after pi
+    	}
+    }
+    
+    //Practical 6 QuickSort
+    /*Low is starting index and high is end index i.e. usually 0 and n-1*/
+    public static void enhancedQuickSort(int[] arr, int low, int high)
+    {
+    	/*If less than or equal to the cutoff number of elements then insertion sort is faster*/
+    	if(high <= low + CUTOFF -1)
+    	{
+    		insertionSort(arr);
+    		return;
+    	}
+    	
+    	shuffle(arr); //Shuffling array before beginning makes algorithm more efficient and protects against worst case
+    	
+    	medianof3(arr, low, low+(high-low)/2, high); //Sorting low, mid and high to make it more efficient
+    	
+    	
+    	int pi; //Partitioning index
+    	if(low<high)
+    	{
+    		pi = partition(arr, low, high);  //arr[pi] is now at right place
+    		enhancedQuickSort(arr, low, pi-1); //Sort elements before pi
+    		enhancedQuickSort(arr, pi+1, high); //Sort elements after pi
+    	}
+    }
+    
+    //Practical 6 QuickSort
+    public static int partition(int[] arr, int low, int high)
+    {
+    	int pivot = arr[high];
+    	int i = low-1; //Index of smaller element
+    	
+    	//Iterate through all elements except the high as this will naturally be in right place
+    	for(int j=low; j<=high-1; j++)
+    	{
+    		//If current element is smaller than pivot
+    		if(arr[j]<pivot)
+    		{
+    			i++; //Increment index of smaller element
+    			/*Swap smaller element with current element*/
+    			swap(arr, i, j);
+    		}
+    	}
+    	
+    	swap(arr, i+1, high);
+    	
+    	return i+1; //Return partitioning index
+    }
+    
+    /*Helper function for enhanced quick sort*/
+    public static void medianof3(int[] arr, int low, int mid, int high)
+    {
+        if( arr[mid] < arr[low])
+        {
+            swap(arr, low, mid);
+        }
+        if( arr[high]<arr[low])
+        {
+        	swap(arr, high, low);
+        }
+        if( arr[high]<arr[mid])
+        {
+        	swap(arr, high, mid);
+        }
+        
+        swap(arr, mid, high-1);
+    }
+    
+	/*Method which ensures that an array is sorted*/
+	public static boolean isSorted(Integer[] array, int length) 
+	{
+	    if (array == null || length < 2) 
+	        return true; 
+	    if (array[length - 2].compareTo(array[length - 1]) > 0)
+	        return false;
+	    return isSorted(array, length - 1);
+	}
+    
     public static void main(String[] args)
     {
-    	int[] a = new int[20];
+    	int n = 10;
+    	
+    	while(n<=100000)
+    	{
+        	int[] a = new int[n];
+        	//ArrayList<Integer> d = new ArrayList<Integer>();
+        	
+        	Random random = new Random();
+        	
+        	for(int i=0; i<a.length; i++)
+        	{
+        		a[i] = random.nextInt(n);
+        	}
+        	
+        	long startTime = System.nanoTime();
+        	//bogoSort(a);
+        	//selection_sort(a);
+        	//insertionSort(a);
+        	//mergeSort(d);
+        	//quickSort(a, 0, n-1);
+        	enhancedQuickSort(a, 0, n-1);
+        	long elapsedTime = System.nanoTime() - startTime; 
+        	System.out.println(n + " " + elapsedTime + " " + isSorted(a));
+        	//System.out.println(n +  " " + elapsedTime + " " + isSorted(mergeSort(d).toArray(new Integer[mergeSort(d).size()]), mergeSort(d).toArray(new Integer[mergeSort(d).size()]).length));
+        	
+        	n*=1.2;
+    	}
+    	/*int[] a = new int[20];
     	int[] b = new int[20];
     	int[] c = new int[20];
     	ArrayList<Integer> d = new ArrayList<Integer>();
+    	int[] e = new int[20];
+    	int[] f = new int[20];
     	
     	Random random = new Random();
     	
@@ -197,37 +317,52 @@ public class Sorting
     		b[i] = random.nextInt(20);
     		c[i] = random.nextInt(20);
     		d.add(random.nextInt(20));
+    		e[i] = random.nextInt(20);
+    		f[i] = random.nextInt(20);
     	}
     	
 
     	
     	printArray(a);
-    	
-    	long startTime = System.currentTimeMillis();
+    	long startTime = System.nanoTime();
     	selection_sort(a);
-    	long elapsedTime = System.currentTimeMillis() - startTime; 
-    	System.out.println("the time taken for selection " + elapsedTime);  
+    	long elapsedTime = System.nanoTime() - startTime; 
+    	System.out.println("the time taken for selection " + elapsedTime + " " + isSorted(a));  
     	printArray(a);
     	
     	printArray(b);
-    	long startTime1 = System.currentTimeMillis();
+    	long startTime1 = System.nanoTime();
     	insertionSort(b);
-    	long elapsedTime1 = System.currentTimeMillis() - startTime1; 
-    	System.out.println("the time taken for insertion " + elapsedTime1);
+    	long elapsedTime1 = System.nanoTime() - startTime1; 
+    	System.out.println("the time taken for insertion " + elapsedTime1 + " " + isSorted(b));
     	printArray(b);
     	
-    	/*printArray(c);
+    	printArray(c);
     	long startTime2 = System.currentTimeMillis();
     	bogoSort(c);
     	long elapsedTime2 = System.currentTimeMillis() - startTime2; 
     	System.out.println("the time taken for insertion " + elapsedTime2);
-    	printArray(c);*/
+    	printArray(c);
 
     	System.out.println("Merge Sort unsorted: " + d);
-    	long startTime3 = System.currentTimeMillis();
-    	System.out.println("Merged Sort sorted: " + mergeSort(d));
-    	long elapsedTime3 = System.currentTimeMillis() - startTime3; 
-    	System.out.println("the time taken for merge sort " + elapsedTime3);
+    	long startTime3 = System.nanoTime();
+    	mergeSort(d);
+    	long elapsedTime3 = System.nanoTime() - startTime3; 
+    	System.out.println("the time taken for merge sort " + elapsedTime3 + " " + isSorted(mergeSort(d).toArray(new Integer[mergeSort(d).size()]), mergeSort(d).toArray(new Integer[mergeSort(d).size()]).length));
+    	
+    	System.out.println("Quick Sort unsorted: ");
+    	printArray(e);
+    	long startTime4 = System.nanoTime();
+    	quickSort(e, 0, 19);
+    	long elapsedTime4 = System.nanoTime() - startTime4; 
+    	System.out.println("the time taken for quick sort " + elapsedTime4 + " " + isSorted(e));
+    	
+    	System.out.println("Enhanced Quick Sort unsorted: ");
+    	printArray(f);
+    	long startTime5 = System.nanoTime();
+    	quickSort(f, 0, 19);
+    	long elapsedTime5 = System.nanoTime() - startTime5; 
+    	System.out.println("the time taken for quick sort " + elapsedTime5 + " " + isSorted(f));*/
     }
 
 }
