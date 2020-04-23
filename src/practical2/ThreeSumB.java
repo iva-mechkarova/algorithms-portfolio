@@ -1,3 +1,4 @@
+package practical2;
 /******************************************************************************
  *  Compilation:  javac ThreeSumB.java
  *  Execution:    java ThreeSumB input.txt

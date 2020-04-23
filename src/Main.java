@@ -3,6 +3,18 @@ import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
 
+import practical1.RussianPeasant;
+import practical2.In;
+import practical2.ThreeSumA;
+import practical2.ThreeSumB;
+import practical3.Fibonacci;
+import practical3.Hanoi;
+import practical7.BruteForceSearch;
+import practical7.KMPSearch;
+import practical8.Trie;
+import practical9.CompressString;
+import practicals4_5_6.Sorting;
+
 public class Main 
 {
 	public static void main(String[] args)
@@ -126,7 +138,7 @@ public class Main
         		System.out.println("BruteForceSearch class chosen:");
         		String txt;
         		String pat = "ABABCABAB"; 
-        	    File file = new File("bruteForce.txt");
+        	    File file = new File("src/practical7/bruteForce.txt");
 				Scanner sc;
 				try {
 					sc = new Scanner(file);
@@ -154,7 +166,7 @@ public class Main
         		System.out.println("KMPSearch class chosen:");
         		String txtKMP;
         		String patKMP = "ABABCABAB"; 
-        	    File fileKMP = new File("kmpSearch.txt");
+        	    File fileKMP = new File("src/practical7/kmpSearch.txt");
 				Scanner scKMP;
 				try {
 					scKMP = new Scanner(fileKMP);

@@ -1,3 +1,5 @@
+package practical7;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -32,7 +34,7 @@ public class BruteForceSearch
 	{ 
 		String txt;
 		String pat = "ABABCABAB"; 
-	    File file = new File("bruteForce.txt");
+	    File file = new File("src/practical7/bruteForce.txt");
 	    Scanner sc = new Scanner(file);
 	    int i = 0;
 	    

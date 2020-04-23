@@ -1,3 +1,4 @@
+package practical3;
 public class Hanoi 
 {
 	public static void towersOfHanoi( int disk, String source, String
