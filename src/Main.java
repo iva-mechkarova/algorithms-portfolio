@@ -9,7 +9,10 @@ public class Main
 	{
 		Scanner methodIn = new Scanner(System.in);
 
-        System.out.println("Please enter which method you wish to run.");
+        System.out.println("Please enter the number which corresponds to the method you wish to run.");
+        System.out.println("1 = Fibonacci, 2 = Hanoi, 3 = Russian Peasant, 4 = ThreeSumA\n5 = ThreeSumB, 6 = Sorting, "
+        		+ "7 = BruteForceSearch\n8 = KMPSearch, 9 = Trie, 10 = CompressString");
+        System.out.println("Enter number here: ");
         int method = methodIn.nextInt();
         methodIn.close();
         
