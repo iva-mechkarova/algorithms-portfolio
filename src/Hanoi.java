@@ -1,6 +1,6 @@
 public class Hanoi 
 {
-	static void towersOfHanoi( int disk, String source, String
+	public static void towersOfHanoi( int disk, String source, String
 	 destination, String auxiliary) 
 	{
 		if (disk ==1) 

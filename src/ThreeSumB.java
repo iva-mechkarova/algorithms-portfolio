@@ -65,9 +65,9 @@ public class ThreeSumB {
     	long startTime = System.currentTimeMillis();
         In in = new In(args[0]); //Muster enter name of file as cmd line argument in run configs
         int[] a = in.readAllInts();
-        int count = count(a);
-        System.out.println("count =" + count);
+        int count = count(a);   
         long elapsedTime = System.currentTimeMillis() - startTime; 
+        System.out.println("count =" + count);
         System.out.println("the time taken " + elapsedTime);   
     } 
 } 

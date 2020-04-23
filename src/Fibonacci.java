@@ -4,7 +4,7 @@ public class Fibonacci
 	static int fib = 1;
 	static int prevFib = 1;
 	
-	static int fibonacciIterative(int n)
+	public static int fibonacciIterative(int n)
 	{
 		  if (n<=1)
 		      return 1; 
@@ -22,7 +22,7 @@ public class Fibonacci
 	 }
 
 	
-	static int fibonacciRecursive(int n)
+	public static int fibonacciRecursive(int n)
 	{
 		if (n<=1)
 		{
@@ -36,7 +36,7 @@ public class Fibonacci
     { 
 		 int n = 10; 
 		 /*Check each method with different values for n*/
-		 while(n<1000000)
+		 while(n<45)
 		 {
 			 long startTime = System.nanoTime();
 			 fibonacciIterative(n);
