@@ -1,3 +1,4 @@
+package helper_code;
 /******************************************************************************
  *  Compilation:  javac BinaryStdOut.java
  *  Execution:    java BinaryStdOut

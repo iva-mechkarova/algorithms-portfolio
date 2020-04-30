@@ -1,3 +1,4 @@
+package helper_code;
 /******************************************************************************
  *  Compilation:  javac StdOut.java
  *  Execution:    java StdOut

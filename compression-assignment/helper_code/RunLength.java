@@ -1,3 +1,4 @@
+package helper_code;
 /******************************************************************************
  *  Compilation:  javac RunLength.java
  *  Execution:    java RunLength - < input.txt   (compress)

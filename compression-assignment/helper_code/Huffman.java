@@ -1,3 +1,8 @@
+package helper_code;
+import helper_code.BinaryStdIn;
+import helper_code.BinaryStdOut;
+import helper_code.MinPQ;
+
 /******************************************************************************
  *  Compilation:  javac Huffman.java
  *
@@ -53,27 +58,53 @@ public class Huffman {
      * to standard output.
      */
     public static void compress() {
+    	
+    	final long startTime = System.nanoTime();
         // read the input
-
+    	String input = BinaryStdIn.readString();
+    	char[] chars = input.toCharArray(); //Separate input string into it's chars
 
         // tabulate frequency counts
-
+    	int[] freq = new int[R]; //Max of R different chars as there are R ASCII chars
+    	
+    	for(int i = 0; i<chars.length; i++)
+    	{
+    		freq[chars[i]]++; //Increment freq at correct position
+    	}
 
         // build Huffman trie
-
+    	Node root = buildTrie(freq);
 
         // build code table
-
+    	String[] st = new String[R];
+    	buildCode(st, root, "");
 
         // print trie for decoder
-
+    	writeTrie(root);
 
         // print number of bytes in original uncompressed message
-
+    	BinaryStdOut.write(chars.length);
 
         // use Huffman code to encode input
-
-
+    	for(int i=0; i<chars.length; i++)
+    	{
+    		 //Add code of each char to compute compressed bitstring
+    		String code = st[chars[i]];
+    		
+    		for(int j=0; j<code.length(); j++)
+    		{
+    			if(code.charAt(j) == '0')
+    				BinaryStdOut.write(false);		
+    			else if(code.charAt(j) == '1')
+    				BinaryStdOut.write(true);
+    			else
+    				throw new IllegalStateException("Illegal State");
+    		}
+    	}
+    	final long elapsedTime = System.nanoTime();
+        System.out.println("Time taken for compression: " + (elapsedTime-startTime) + " ns");
+    	BinaryStdOut.close(); //Close output stream
+    
     }
 
 
@@ -82,13 +113,36 @@ public class Huffman {
      * standard input; expands them; and writes the results to standard output.
      */
     public static void decompress() {
-
+    	
+    	final long startTime = System.nanoTime();
+    	
         // read in Huffman trie from input stream
+    	Node root = readTrie();
 
         // number of bytes to write
-
+    	int noOfBytes = BinaryStdIn.readInt();
+    	
         // decode using the Huffman trie
-
+    	for (int i=0; i<noOfBytes; i++)
+    	{
+    		Node x = root; //Start at the root
+    		/*Iterate down through the tree, checking if 0 or 1 each time*/
+    		while(!x.isLeaf())
+    		{
+    			/*Check if value from code is 1, if it isn't then it's 0 so go to the left*/
+    			boolean one = BinaryStdIn.readBoolean();
+    			if (one)
+    				x = x.right;
+    			else
+    				x = x.left;
+    		}
+    		
+    		BinaryStdOut.write(x.ch, 8); //Write out the char (it has 8 relevant bits)
+    	}
+    	
+    	final long elapsedTime = System.nanoTime();
+        System.out.println("Time taken for decompression: " + (elapsedTime-startTime) + " ns");
+    	BinaryStdOut.close(); //Close output stream
     }
 
     // build the Huffman trie given frequencies
@@ -159,7 +213,12 @@ public class Huffman {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-
+    	if (args[0].equals("-")) 
+    		compress();
+    	else if (args[0].equals("+"))
+    		decompress();
+    	else throw new IllegalArgumentException("Invalid command line argument."
+    			+ " Please enter \"-\" to compress or \"+\" to decompress.");
     }
 
 }

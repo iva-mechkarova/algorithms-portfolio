@@ -1,3 +1,4 @@
+package helper_code;
 /******************************************************************************
  *  Compilation:  javac BinaryIn.java
  *  Execution:    java BinaryIn input output

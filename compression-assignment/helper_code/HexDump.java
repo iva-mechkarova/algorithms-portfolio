@@ -1,3 +1,4 @@
+package helper_code;
 /******************************************************************************
  *  Compilation:  javac HexDump.java
  *  Execution:    java HexDump < file

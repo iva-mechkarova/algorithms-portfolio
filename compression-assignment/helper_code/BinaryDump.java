@@ -1,3 +1,4 @@
+package helper_code;
 /******************************************************************************
  *  Compilation:  javac BinaryDump.java
  *  Execution:    java BinaryDump n < file
@@ -17,7 +18,6 @@
  *  96 bits
  *
  ******************************************************************************/
-
 
 /**
  *  The {@code BinaryDump} class provides a client for displaying the contents
