@@ -1,4 +1,5 @@
 package helper_code;
+
 import helper_code.BinaryStdIn;
 import helper_code.BinaryStdOut;
 import helper_code.MinPQ;
@@ -19,13 +20,13 @@ import helper_code.MinPQ;
  *
  *  @author Your name
  */
-public class Huffman {
+public class HuffmanAlgorithm {
 
     // alphabet size of extended ASCII
     private static final int R = 256;
 
     // Do not instantiate.
-    private Huffman() { }
+    private HuffmanAlgorithm() { }
 
     // Huffman trie node
     private static class Node implements Comparable<Node> {
@@ -101,10 +102,9 @@ public class Huffman {
     				throw new IllegalStateException("Illegal State");
     		}
     	}
-    	final long elapsedTime = System.nanoTime();
-        System.out.println("Time taken for compression: " + (elapsedTime-startTime) + " ns");
-    	BinaryStdOut.close(); //Close output stream
-    
+    	final long elapsedTime = System.nanoTime() - startTime;
+    	//System.out.println("Time taken to compress: " + elapsedTime + "ns");
+    	BinaryStdOut.close(); //Close output stream    
     }
 
 
@@ -140,8 +140,8 @@ public class Huffman {
     		BinaryStdOut.write(x.ch, 8); //Write out the char (it has 8 relevant bits)
     	}
     	
-    	final long elapsedTime = System.nanoTime();
-        System.out.println("Time taken for decompression: " + (elapsedTime-startTime) + " ns");
+    	final long elapsedTime = System.nanoTime() - startTime;
+    	//System.out.println("Time taken to decompress: " + elapsedTime + "ns");
     	BinaryStdOut.close(); //Close output stream
     }
 
