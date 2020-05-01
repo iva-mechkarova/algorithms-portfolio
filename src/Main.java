@@ -37,8 +37,8 @@ public class Main
 				while (n < 45) 
 				{
 					long startTimeFib = System.nanoTime();
-					//Fibonacci.fibonacciIterative(n);
-					Fibonacci.fibonacciRecursive(n);
+					Fibonacci.fibonacciIterative(n);
+					//Fibonacci.fibonacciRecursive(n);
 					long elapsedTimeFib = System.nanoTime() - startTimeFib;
 					System.out.println(n + " " + elapsedTimeFib);
 					n *= 1.2;
@@ -47,7 +47,7 @@ public class Main
 				break;
         	case 2:
         		System.out.println("Hanoi class chosen:");
-                int n1 = 3; // Number of disks 
+                int n1 = 16; // Number of disks 
             	long startTimeHanoi = System.nanoTime();
             	Hanoi.towersOfHanoi(n1, "A", "C", "B");  // A, B and C are names of rods 
             	long elapsedTimeHanoi = System.nanoTime() - startTimeHanoi;
@@ -57,12 +57,12 @@ public class Main
         		System.out.println("RussianPeasant class chosen:");
                 RussianPeasant r = new RussianPeasant();
                 final long startTimeRP = System.nanoTime();
-                System.out.println(r.RussianMultiply(233, 100000)); //Input different sizes for numbers to record time taken
+                System.out.println(r.RussianMultiply(1, 1)); //Input different sizes for numbers to record time taken
                 final long elapsedTimeRP = System.nanoTime() - startTimeRP;
                 System.out.println("the time taken " + elapsedTimeRP);
                 break;
         	case 4:
-        		System.out.println("ThreeSumA class chosen (make sure you entered name of file as cmd line argument):");
+        		System.out.println("ThreeSumA class chosen (you can change name of file as program argument in run configs):");
             	long startTimeTSA = System.nanoTime();
                 In inTSA = new In(args[0]); //Muster enter name of file as cmd line argument in run configs
                 int[] a = inTSA.readAllInts();
@@ -72,12 +72,12 @@ public class Main
                 System.out.println("the time taken " + elapsedTimeTSA); 
         		break;
         	case 5:
-        		System.out.println("ThreeSumB class chosen (make sure you entered name of file as cmd line argument):");
-            	long startTimeTSB = System.currentTimeMillis();
+        		System.out.println("ThreeSumB class chosen (you can change name of file as program argument in run configs):");
+            	long startTimeTSB = System.nanoTime();
                 In inTSB = new In(args[0]); //Muster enter name of file as cmd line argument in run configs
                 int[] aTSB = inTSB.readAllInts();
                 int countB = ThreeSumB.count(aTSB);               
-                long elapsedTimeTSB = System.currentTimeMillis() - startTimeTSB; 
+                long elapsedTimeTSB = System.nanoTime() - startTimeTSB; 
                 System.out.println("count =" + countB);
                 System.out.println("the time taken " + elapsedTimeTSB); 
                 break;
@@ -86,7 +86,7 @@ public class Main
             	int nSorting = 10;
             	
             	//use an integer variable to decide which sorting algorithm to use below
-            	int typeSort = 5;
+            	int typeSort = 6;
             	while(nSorting<=100000)
             	{
                 	int[] aSorting = new int[nSorting];
@@ -151,9 +151,9 @@ public class Main
 	        	    	txt = sc.nextLine();
 	        	    	System.out.print("Line " + i + ": ");
 	        	    	i++;
-	        	    	long startTimeBFS = System.currentTimeMillis();
+	        	    	long startTimeBFS = System.nanoTime();
 	        	    	BruteForceSearch.search(txt, pat);
-	        	    	long elapsedTimeBFS = System.currentTimeMillis() - startTimeBFS; 
+	        	    	long elapsedTimeBFS = System.nanoTime() - startTimeBFS; 
 	        	    	System.out.println("the time taken for selection " + elapsedTimeBFS);  
 	        	    }  
 	        	    
@@ -179,9 +179,9 @@ public class Main
 	        	    	txtKMP = scKMP.nextLine();
 	        	    	System.out.print("Line " + i + ": ");
 	        	    	i++;
-	        	    	long startTimeKMP = System.currentTimeMillis();
+	        	    	long startTimeKMP = System.nanoTime();
 	        	    	new KMPSearch().KMPSearch(patKMP, txtKMP); 
-	        	    	long elapsedTimeKMP = System.currentTimeMillis() - startTimeKMP; 
+	        	    	long elapsedTimeKMP = System.nanoTime() - startTimeKMP; 
 	        	    	System.out.println("the time taken for selection " + elapsedTimeKMP); 
 	        	    }  
 	        	    
