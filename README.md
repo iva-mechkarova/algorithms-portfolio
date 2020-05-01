@@ -2,8 +2,8 @@
 This repository contains all of my code for the practicals throughout the semester. It also includes an analysis of the algorithms for
 each of the practicals (where this is applicable i.e. Trie and Compression practicals did not include this). These analyses are provided 
 as excel files, where each of the excel files contain a table which shows how long (in nanoseconds) the algorithms take to compute for 
-different values of N. The practicals are divided into separate packages but practicals 4, 5 and 6 are in the same package as they are all 
-for sorting algorithms.
+different values of N. The practicals are divided into separate packages but practicals 4, 5 and 6 are in the same package as they are all for sorting algorithms. The repository also contains the code for the Huffman Compression Assignment. On top of this, it contains
+the compressed and decompressed files for Task 3 of the Huffman Assignment. You will find the Huffman Compression Assignment in a separate source folder called "compression-assignment". In this source folder there are two packages - one which contains all of the data (i.e. original files, compressed files and decompressed files) and the other contains all of the code. The answer to task 2 from the assignment is found in the class "HuffmanAlgorithm".
 
 ## Getting Started
 To get a copy of this project on your local machine, open your IDE and choose to import a project from github. Then, use the URL
@@ -20,7 +20,7 @@ the files on command line, then you must enter the name of the file as a command
 of the classes from each of the practicals also include a main method so if you prefer, you can also run the algorithms from the main
 method in their class file. 
 
-## Analysing Algorithms
+## Analysing The Algorithms
 I have set up Fibonacci and Sorting to be run with various different inputs and the time taken is calculated in nanoseconds after they 
 run with each value of N - the value of N and time in nanoseconds is printed to the console. For sorting, you can change the value of
 "typeSort" in order to select which sort to use. For Hanoi and RussianPeasant algorithms you may enter different parameter values to 
