@@ -1,6 +1,6 @@
 # COMP20290 Algorithms Portfolio
 This repository contains all of my code for the practicals throughout the semester. It also includes an analysis of the algorithms for
-each of the practicals (where this is applicable i.e. Trie and Compression practicals did not include this). These analysises are provided 
+each of the practicals (where this is applicable i.e. Trie and Compression practicals did not include this). These analyses are provided 
 as excel files, where each of the excel files contain a table which shows how long (in nanoseconds) the algorithms take to compute for 
 different values of N. The practicals are divided into separate packages but practicals 4, 5 and 6 are in the same package as they are all 
 for sorting algorithms.
@@ -24,10 +24,10 @@ method in their class file.
 I have set up Fibonacci and Sorting to be run with various different inputs and the time taken is calculated in nanoseconds after they 
 run with each value of N - the value of N and time in nanoseconds is printed to the console. For sorting, you can change the value of
 "typeSort" in order to select which sort to use. For Hanoi and RussianPeasant algorithms you may enter different parameter values to 
-test the speed of the algorithms - this is how the analysis was obtained for them. For the search string practical, you may test the
+test the speed of the algorithms - this is how the analyses was obtained for them. For the search string practical, you may test the
 speed of the algorithms by editing bruteForce.txt and KMPSearch.txt - I have made both txt files to contain the same text, in order to 
 compare the algorithms. Each line of the text files is longer than the previous one, in order to test how the algorithms perform with
-strings of different length. 
+strings of different length. The time taken for each algorithm to run will be printed to the console in nanoseconds after each algorithm has run.
 
 ## Built With
 * [Eclipse Version 2019-12 (4.14.0)](https://www.eclipse.org/downloads/packages/release/2019-12) - The IDE used
