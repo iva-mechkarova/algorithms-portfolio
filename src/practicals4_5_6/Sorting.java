@@ -244,18 +244,21 @@ public class Sorting
     		return;
     	}
     	
-    	shuffle(arr); //Shuffling array before beginning makes algorithm more efficient and protects against worst case
+    	/*Shuffle and medianOf3 seemed to be slowing the sort down*/
+    	//shuffle(arr); //Shuffling array before beginning makes algorithm more efficient and protects against worst case
     	
-    	medianof3(arr, low, low+(high-low)/2, high); //Sorting low, mid and high to make it more efficient
+    	//medianof3(arr, low, low+(high-low)/2, high); //Sorting low, mid and high to make it more efficient
     	
     	
-    	int pi; //Partitioning index
+    	/*int pi; //Partitioning index
     	if(low<high)
     	{
     		pi = partition(arr, low, high);  //arr[pi] is now at right place
     		enhancedQuickSort(arr, low, pi-1); //Sort elements before pi
     		enhancedQuickSort(arr, pi+1, high); //Sort elements after pi
-    	}
+    	}*/
+    	
+    	quickSort(arr, low, high);
     }
     
     //Practical 6 QuickSort
