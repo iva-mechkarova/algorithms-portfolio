@@ -208,14 +208,16 @@ public class HuffmanAlgorithm {
     		final long startTime = System.nanoTime();
     		compress();
     		final long elapsedTime = System.nanoTime() - startTime;
-    		BinaryStdOut.write("Time taken for compression: " + elapsedTime + "ns");
+    		/*System.err ensures that the time taken is always printed at the end - doesn't matter what's in the BinaryStdOut buffer*/
+    		System.err.println("Time taken for compression: " + elapsedTime + "ns");
     	}
     	else if (args[0].equals("+"))
     	{
     		final long startTime = System.nanoTime();
     		decompress();
     		final long elapsedTime = System.nanoTime() - startTime;
-    		BinaryStdOut.write("Time taken for decompression: " + elapsedTime + "ns");
+    		/*System.err ensures that the time taken is always printed at the end - doesn't matter what's in the BinaryStdOut buffer*/
+    		System.err.println("Time taken for decompression: " + elapsedTime + "ns");
     	}
     	else throw new IllegalArgumentException("Invalid command line argument."
     			+ " Please enter \"-\" to compress or \"+\" to decompress.");
