@@ -59,8 +59,6 @@ public class HuffmanAlgorithm {
      * to standard output.
      */
     public static void compress() {
-    	
-    	final long startTime = System.nanoTime();
         // read the input
     	String input = BinaryStdIn.readString();
     	char[] chars = input.toCharArray(); //Separate input string into it's chars
@@ -102,8 +100,6 @@ public class HuffmanAlgorithm {
     				throw new IllegalStateException("Illegal State");
     		}
     	}
-    	final long elapsedTime = System.nanoTime() - startTime;
-    	//System.out.println("Time taken to compress: " + elapsedTime + "ns");
     	BinaryStdOut.close(); //Close output stream    
     }
 
@@ -113,9 +109,6 @@ public class HuffmanAlgorithm {
      * standard input; expands them; and writes the results to standard output.
      */
     public static void decompress() {
-    	
-    	final long startTime = System.nanoTime();
-    	
         // read in Huffman trie from input stream
     	Node root = readTrie();
 
@@ -139,9 +132,6 @@ public class HuffmanAlgorithm {
     		
     		BinaryStdOut.write(x.ch, 8); //Write out the char (it has 8 relevant bits)
     	}
-    	
-    	final long elapsedTime = System.nanoTime() - startTime;
-    	//System.out.println("Time taken to decompress: " + elapsedTime + "ns");
     	BinaryStdOut.close(); //Close output stream
     }
 
@@ -214,9 +204,19 @@ public class HuffmanAlgorithm {
      */
     public static void main(String[] args) {
     	if (args[0].equals("-")) 
+    	{
+    		final long startTime = System.nanoTime();
     		compress();
+    		final long elapsedTime = System.nanoTime() - startTime;
+    		BinaryStdOut.write("Time taken for compression: " + elapsedTime + "ns");
+    	}
     	else if (args[0].equals("+"))
+    	{
+    		final long startTime = System.nanoTime();
     		decompress();
+    		final long elapsedTime = System.nanoTime() - startTime;
+    		BinaryStdOut.write("Time taken for decompression: " + elapsedTime + "ns");
+    	}
     	else throw new IllegalArgumentException("Invalid command line argument."
     			+ " Please enter \"-\" to compress or \"+\" to decompress.");
     }
